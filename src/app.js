@@ -32,13 +32,13 @@ function handleSubmit(event) {
 }
 function convertFahrenheit(event) {
   event.preventDefault();
-  let degrees = document.querySelector(`#degrees`);
-  degrees.innerHTML = 66;
+  let fahrenheitTemp = Math.round((celsiusTemp * 9) / 5 + 32);
+
+  document.querySelector("#degrees").innerHTML = fahrenheitTemp;
 }
 function convertCelsius(event) {
   event.preventDefault();
-  let degrees = document.querySelector(`#degrees`);
-  degrees.innerHTML = 18;
+  document.querySelector("#degrees").innerHTML = Math.round(celsiusTemp);
 }
 
 function displayWeather(response) {
@@ -46,6 +46,8 @@ function displayWeather(response) {
   document.querySelector(`#degrees`).innerHTML = Math.round(
     response.data.main.temp
   );
+
+  celsiusTemp = response.data.main.temp;
 
   document.querySelector(`#wind`).innerHTML = Math.round(
     response.data.wind.speed
@@ -85,7 +87,8 @@ fahrenheit.addEventListener(`click`, convertFahrenheit);
 
 let celsius = document.querySelector(`#celsius`);
 celsius.addEventListener(`click`, convertCelsius);
-searchCity(`sanford`);
+let celsiusTemp = null;
 
 let currentLocation = document.querySelector(`#current-location`);
 currentLocation.addEventListener(`click`, fetchCurrentLocation);
+searchCity(`sanford`);
